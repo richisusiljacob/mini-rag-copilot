@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:5500/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Richi Susil Jacob — Mini RAG Copilot</title>
+  <script src="./UI_Demo_files/saved_resource"></script>
+  <style>
+    .chip { padding: 8px 12px; border-radius: 9999px; border: 1px solid #1f2937; background: rgba(2,6,23,.6); }
+    .chip:hover { border-color: #38bdf8; }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.mx-auto{margin-left:auto;margin-right:auto}.ml-auto{margin-left:auto}.mt-1{margin-top:0.25rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.w-full{width:100%}.max-w-4xl{max-width:56rem}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.whitespace-pre-wrap{white-space:pre-wrap}.rounded-2xl{border-radius:1rem}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.bg-slate-950{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-sky-500{--tw-bg-opacity:1;background-color:rgb(14 165 233 / var(--tw-bg-opacity, 1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/60{background-color:rgb(15 23 42 / 0.6)}.p-5{padding:1.25rem}.p-4{padding:1rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.text-2xl{font-size:1.5rem;line-height:2rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-emerald-400:hover{--tw-bg-opacity:1;background-color:rgb(52 211 153 / var(--tw-bg-opacity, 1))}.hover\:bg-sky-400:hover{--tw-bg-opacity:1;background-color:rgb(56 189 248 / var(--tw-bg-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.focus\:border-sky-500:focus{--tw-border-opacity:1;border-color:rgb(14 165 233 / var(--tw-border-opacity, 1))}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:justify-between{justify-content:space-between}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}</style></head>
+
+<body class="bg-slate-950 text-slate-100">
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold">Mini RAG Copilot</h1>
+        <p class="text-slate-300 mt-1">
+          Built by <span class="font-semibold">Richi Susil Jacob</span> • FastAPI + FAISS + Embeddings
+        </p>
+        <span class="inline-block mt-2 text-xs px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+          Grounded answers • Source citations • Vector search
+        </span>
+      </div>
+
+      <!-- LinkedIn URL -->
+      <a href="https://www.linkedin.com/in/richi-susil-jacob-06948319a/" target="_blank" class="inline-flex items-center justify-center rounded-xl bg-sky-500 px-4 py-2 font-semibold hover:bg-sky-400 transition">
+        Visit LinkedIn
+      </a>
+    </div>
+
+    <!-- Card -->
+    <div class="mt-8 rounded-2xl bg-slate-900/60 border border-slate-800 shadow p-5">
+      <label class="block text-sm font-semibold text-slate-200">Ask a question</label>
+
+      <div class="mt-2 flex flex-col sm:flex-row gap-3">
+        <input id="question" class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 outline-none focus:border-sky-500" placeholder="e.g., What is the escalation process for high severity incidents?">
+        <button id="askBtn" class="rounded-xl bg-emerald-500 px-5 py-3 font-bold hover:bg-emerald-400 transition">Ask</button>
+      </div>
+
+      <!-- Demo chips -->
+      <div class="mt-4 flex flex-wrap gap-2 text-sm text-slate-200">
+        <button class="chip" data-q="What are the incident response steps?">Incident steps</button>
+        <button class="chip" data-q="What is the escalation process for high severity incidents?">High severity escalation</button>
+        <button class="chip" data-q="What PPE is required in active work zones?">PPE requirements</button>
+        <button class="chip" data-q="What is the incident closeout checklist?">Closeout checklist</button>
+      </div>
+
+      <div class="mt-4 flex items-center gap-3 text-sm text-slate-300">
+        <label>Top K:</label>
+        <select id="topk" class="rounded-lg bg-slate-950 border border-slate-700 px-3 py-2">
+          <option>1</option>
+          <option selected="">3</option>
+          <option>5</option>
+        </select>
+
+        <span id="status" class="ml-auto text-slate-400">Done ✅</span>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="mt-6 grid gap-4">
+      <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold">Answer</h2>
+          <button id="copyBtn" class="text-sm text-slate-300 hover:text-white">Copy</button>
+        </div>
+
+        <pre id="answer" class="mt-3 whitespace-pre-wrap text-slate-200 leading-relaxed">According to the provided context, the escalation process for high severity incidents is as follows:
+
+For high severity incidents, the escalation process is to notify the HSE (Health, Safety, and Environment) lead and director immediately. [1]
+
+The incident response steps indicate that after identifying the hazard and affected area, the supervisor should be notified, and an incident ticket should be logged. [2]
+
+The context does not provide any additional details about the specific escalation process beyond notifying the HSE lead and director immediately for high severity incidents. [1]</pre>
+      </div>
+
+      <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-5">
+        <h2 class="text-lg font-bold">Sources</h2>
+        <div id="sources" class="mt-3 grid gap-3 text-sm text-slate-200"><div class="rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <div class="flex items-center justify-between gap-3">
+                <div class="font-semibold">[1] escalation_matrix.txt</div>
+                <div class="text-slate-400">score: 0.712</div>
+              </div>
+              <div class="mt-2 text-slate-200">Escalation Matrix: - Low severity: local supervisor within 2 hours. - Medium severity: site manager within 30 minutes. - High severity: HSE lead and director immediately. All escalations require an incident ID and short </div>
+            </div><div class="rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <div class="flex items-center justify-between gap-3">
+                <div class="font-semibold">[2] incident_response.txt</div>
+                <div class="text-slate-400">score: 0.607</div>
+              </div>
+              <div class="mt-2 text-slate-200">Incident Response Steps: 1) Ensure safety first and stop work if needed. 2) Identify hazard type and affected area. 3) Notify supervisor and log an incident ticket. 4) Isolate the area and apply controls (PPE, barriers).</div>
+            </div><div class="rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <div class="flex items-center justify-between gap-3">
+                <div class="font-semibold">[3] closeout_checklist.txt</div>
+                <div class="text-slate-400">score: 0.440</div>
+              </div>
+              <div class="mt-2 text-slate-200">Incident Closeout Checklist: - Confirm corrective actions completed - Update incident record with evidence - Communicate learnings to stakeholders - Schedule follow-up review within 2 weeks</div>
+            </div><div class="rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <div class="flex items-center justify-between gap-3">
+                <div class="font-semibold">[4] common_root_causes.txt</div>
+                <div class="text-slate-400">score: 0.294</div>
+              </div>
+              <div class="mt-2 text-slate-200">Common Root Causes: - Procedure not followed - Insufficient training - Equipment maintenance overdue - Poor communication during shift handover - Inadequate hazard assessment</div>
+            </div><div class="rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <div class="flex items-center justify-between gap-3">
+                <div class="font-semibold">[5] ppe_guidelines.txt</div>
+                <div class="text-slate-400">score: 0.211</div>
+              </div>
+              <div class="mt-2 text-slate-200">PPE Guidelines: - Eye protection required in active work zones. - Gloves required when handling chemicals or sharp objects. - Respirators required when airborne particles exceed limits. Always check PPE condition before </div>
+            </div></div>
+      </div>
+    </div>
+
+    <p class="mt-8 text-xs text-slate-500">
+      Tip: Run the backend first (uvicorn), then open this UI.
+    </p>
+  </div>
+
+  <script>
+    const askBtn = document.getElementById('askBtn');
+    const questionEl = document.getElementById('question');
+    const topkEl = document.getElementById('topk');
+    const answerEl = document.getElementById('answer');
+    const sourcesEl = document.getElementById('sources');
+    const statusEl = document.getElementById('status');
+
+    async function ask() {
+      const q = questionEl.value.trim();
+      const top_k = parseInt(topkEl.value, 10);
+      if (!q) return;
+
+      statusEl.textContent = "Thinking...";
+      answerEl.textContent = "";
+      sourcesEl.innerHTML = "";
+
+      askBtn.disabled = true;
+      askBtn.textContent = "Working...";
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "accept": "application/json" },
+          body: JSON.stringify({ question: q, top_k })
+        });
+
+        // Handle non-200 responses cleanly
+        if (!res.ok) {
+          const txt = await res.text();
+          throw new Error(`HTTP ${res.status}: ${txt}`);
+        }
+
+        const data = await res.json();
+        answerEl.textContent = data.answer || "No answer returned.";
+
+        if (data.sources && data.sources.length) {
+          data.sources.forEach((s, idx) => {
+            const card = document.createElement("div");
+            card.className = "rounded-xl border border-slate-800 bg-slate-950 p-4";
+            card.innerHTML = `
+              <div class="flex items-center justify-between gap-3">
+                <div class="font-semibold">[${idx+1}] ${s.doc_id}</div>
+                <div class="text-slate-400">score: ${Number(s.score).toFixed(3)}</div>
+              </div>
+              <div class="mt-2 text-slate-200">${s.excerpt}</div>
+            `;
+            sourcesEl.appendChild(card);
+          });
+        } else {
+          sourcesEl.innerHTML = `<p class="text-slate-400">No sources returned.</p>`;
+        }
+
+        statusEl.textContent = "Done ✅";
+      } catch (e) {
+        statusEl.textContent = "Error ❌";
+        answerEl.textContent = "Something went wrong. See details below.";
+        sourcesEl.innerHTML = `<div class="rounded-xl border border-slate-800 bg-slate-950 p-4 text-slate-300">${e}</div>`;
+      } finally {
+        askBtn.disabled = false;
+        askBtn.textContent = "Ask";
+      }
+    }
+
+    // Click Ask + Enter
+    askBtn.addEventListener('click', ask);
+    questionEl.addEventListener('keydown', (e) => {
+      if (e.key === "Enter") ask();
+    });
+
+    // Demo chips
+    document.querySelectorAll(".chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        questionEl.value = btn.dataset.q;
+        ask();
+      });
+    });
+
+    // Copy answer
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(answerEl.textContent || "");
+      statusEl.textContent = "Copied ✅";
+    });
+  </script>
+
+
+</body></html>
