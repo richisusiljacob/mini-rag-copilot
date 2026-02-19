@@ -49,35 +49,41 @@ These answers are usually spread across multiple documents. This copilot makes r
 ---
 
 ## Project structure
-- `data/docs/` → your documents (.txt)
-- `ingest.py` → builds the vector index
-- `index/` → saved FAISS index + metadata
-- `app.py` → FastAPI backend (`/health`, `/ask`)
-- `ui/index.html` → UI frontend
+•	data/docs/ → source documents to ingest (e.g., .txt)
+•	ingest.py → loads docs, creates embeddings, and builds the FAISS vector index
+•	index/ → persisted FAISS index + metadata (used at query time)
+•	app.py → FastAPI backend (e.g., GET /health, POST /ask)
+•	ui/index.html → simple frontend UI for demos/testing
 
 ---
 
-## How it works (portfolio explanation)
+## How it works
 
-### Python (the structure)
-Python runs the full workflow: document loading → embeddings → FAISS indexing → API responses.
+### Python (workflow orchestration)
 
-### Documents / dataset (the knowledge base)
-Your dataset is the text files inside `data/docs/`. The copilot answers using these documents only.
+Python runs the full pipeline end-to-end: document loading → embeddings → FAISS indexing → retrieval → API response.
+
+### Documents / dataset (knowledge base)
+
+Your knowledge base is the text files in data/docs/. The copilot answers only using these documents (no external browsing).
 
 ### Embeddings (turn text into meaning)
-Embeddings convert text into vectors so the system can match by meaning, not exact words.
+
+Embeddings convert text into vectors so the system can match by meaning, not exact keywords.
 
 Example:
-- Question: “Who do I escalate to urgently?”
-- Document: “High severity: HSE lead and director immediately”
-Even if wording differs, semantic search can match the meaning.
+	•	Question: “Who do I escalate to urgently?”
+	•	Document: “High severity: escalate to the HSE lead and director immediately.”
+Even with different wording, semantic search can still match the intent.
 
 ### FAISS (fast vector search)
-FAISS stores all document vectors and quickly retrieves the Top K most similar results for each question.
+
+FAISS stores the document vectors and retrieves the Top-K most similar chunks for each query. These retrieved chunks become the “sources” used to form the final answer.
 
 ### FastAPI + UI
-FastAPI exposes `/ask` as a REST endpoint. The UI calls this endpoint and displays the answer plus sources.
+
+FastAPI exposes /ask as a REST endpoint. The UI calls /ask and displays the answer along with supporting sources/snippets.
+
 
 ---
 
