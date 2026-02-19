@@ -33,7 +33,7 @@ These answers are usually spread across multiple documents. This copilot makes r
 ✅ Meaning-based search (semantic retrieval)  
 ✅ Ranked sources with similarity scores (traceable answers)  
 ✅ FastAPI backend with Swagger docs  
-✅ Simple UI for demo/interviews (Tailwind)  
+✅ Lightweight Tailwind UI built for fast demonstrations. 
 ✅ GenAI-ready RAG design (retrieval + optional LLM answer generation)
 
 ---
