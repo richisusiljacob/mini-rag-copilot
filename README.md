@@ -49,11 +49,11 @@ These answers are usually spread across multiple documents. This copilot makes r
 ---
 
 ## Project structure
-•	data/docs/ → source documents to ingest (e.g., .txt)
-•	ingest.py → loads docs, creates embeddings, and builds the FAISS vector index
-•	index/ → persisted FAISS index + metadata (used at query time)
-•	app.py → FastAPI backend (e.g., GET /health, POST /ask)
-•	ui/index.html → simple frontend UI for demos/testing
+- •	data/docs/ → source documents to ingest (e.g., .txt)
+- •	ingest.py → loads docs, creates embeddings, and builds the FAISS vector index
+- •	index/ → persisted FAISS index + metadata (used at query time)
+- •	app.py → FastAPI backend (e.g., GET /health, POST /ask)
+- •	ui/index.html → simple frontend UI for demos/testing
 
 ---
 
@@ -65,7 +65,7 @@ Python runs the full pipeline end-to-end: document loading → embeddings → FA
 
 ### Documents / dataset (knowledge base)
 
-Your knowledge base is the text files in data/docs/. The copilot answers only using these documents (no external browsing).
+The knowledge base is the text files inside data/docs/. The copilot answers only using these documents (no external browsing).
 
 ### Embeddings (turn text into meaning)
 
@@ -78,19 +78,21 @@ Even with different wording, semantic search can still match the intent.
 
 ### FAISS (fast vector search)
 
-FAISS stores the document vectors and retrieves the Top-K most similar chunks for each query. These retrieved chunks become the “sources” used to form the final answer.
+FAISS stores the document vectors and retrieves the Top-K most similar chunks for each query. These retrieved chunks are returned as sources and used to form the final answer.
 
 ### FastAPI + UI
 
 FastAPI exposes /ask as a REST endpoint. The UI calls /ask and displays the answer along with supporting sources/snippets.
 
-
 ---
 
 ## GenAI (Portfolio Note)
-This project follows the **RAG (Retrieval-Augmented Generation)** approach used in enterprise GenAI:
-- **Retrieval first:** embeddings + FAISS find the best matching documents.
-- **Generation next (optional):** an LLM (Claude / OpenAI / local model) can generate a cleaner, human-style answer using only retrieved context.
+
+This project implements the RAG (Retrieval-Augmented Generation) approach used in enterprise GenAI:
+
+- Retrieval first: Embeddings + FAISS retrieve the most relevant document chunks from the knowledge base.
+
+- Generation next: The LLM (Claude / OpenAI / local model) generates a clear, human-style answer using only the retrieved context, and returns the supporting sources.
 
 This makes answers:
 - clearer for non-technical users
