@@ -1,0 +1,5 @@
+Incident Closeout Checklist:
+- Confirm corrective actions completed
+- Update incident record with evidence
+- Communicate learnings to stakeholders
+- Schedule follow-up review within 2 weeks

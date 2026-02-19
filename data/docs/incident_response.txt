@@ -1,0 +1,6 @@
+Incident Response Steps:
+1) Ensure safety first and stop work if needed.
+2) Identify hazard type and affected area.
+3) Notify supervisor and log an incident ticket.
+4) Isolate the area and apply controls (PPE, barriers).
+5) Record root cause, corrective action, and prevention steps.

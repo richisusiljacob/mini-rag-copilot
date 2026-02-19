@@ -1,0 +1,5 @@
+Escalation Matrix:
+- Low severity: local supervisor within 2 hours.
+- Medium severity: site manager within 30 minutes.
+- High severity: HSE lead and director immediately.
+All escalations require an incident ID and short summary.

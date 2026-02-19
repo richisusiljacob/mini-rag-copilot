@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Richi Susil Jacob — Mini RAG Copilot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .chip { padding: 8px 12px; border-radius: 9999px; border: 1px solid #1f2937; background: rgba(2,6,23,.6); }
+    .chip:hover { border-color: #38bdf8; }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100">
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold">Mini RAG Copilot</h1>
+        <p class="text-slate-300 mt-1">
+          Built by <span class="font-semibold">Richi Susil Jacob</span> • FastAPI + FAISS + Embeddings
+        </p>
+        <span class="inline-block mt-2 text-xs px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+          Grounded answers • Source citations • Vector search
+        </span>
+      </div>
+
+      <!-- LinkedIn URL -->
+      <a href="https://www.linkedin.com/in/richi-susil-jacob-06948319a/" target="_blank"
+         class="inline-flex items-center justify-center rounded-xl bg-sky-500 px-4 py-2 font-semibold hover:bg-sky-400 transition">
+        Visit LinkedIn
+      </a>
+    </div>
+
+    <!-- Card -->
+    <div class="mt-8 rounded-2xl bg-slate-900/60 border border-slate-800 shadow p-5">
+      <label class="block text-sm font-semibold text-slate-200">Ask a question</label>
+
+      <div class="mt-2 flex flex-col sm:flex-row gap-3">
+        <input id="question"
+               class="w-full rounded-xl bg-slate-950 border border-slate-700 px-4 py-3 outline-none focus:border-sky-500"
+               placeholder="e.g., What is the escalation process for high severity incidents?" />
+        <button id="askBtn"
+                class="rounded-xl bg-emerald-500 px-5 py-3 font-bold hover:bg-emerald-400 transition">
+          Ask
+        </button>
+      </div>
+
+      <!-- Demo chips -->
+      <div class="mt-4 flex flex-wrap gap-2 text-sm text-slate-200">
+        <button class="chip" data-q="What are the incident response steps?">Incident steps</button>
+        <button class="chip" data-q="What is the escalation process for high severity incidents?">High severity escalation</button>
+        <button class="chip" data-q="What PPE is required in active work zones?">PPE requirements</button>
+        <button class="chip" data-q="What is the incident closeout checklist?">Closeout checklist</button>
+      </div>
+
+      <div class="mt-4 flex items-center gap-3 text-sm text-slate-300">
+        <label>Top K:</label>
+        <select id="topk" class="rounded-lg bg-slate-950 border border-slate-700 px-3 py-2">
+          <option>1</option>
+          <option selected>3</option>
+          <option>5</option>
+        </select>
+
+        <span id="status" class="ml-auto text-slate-400"></span>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="mt-6 grid gap-4">
+      <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold">Answer</h2>
+          <button id="copyBtn" class="text-sm text-slate-300 hover:text-white">Copy</button>
+        </div>
+
+        <pre id="answer" class="mt-3 whitespace-pre-wrap text-slate-200 leading-relaxed">
+Ask something to see the result.
+        </pre>
+      </div>
+
+      <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-5">
+        <h2 class="text-lg font-bold">Sources</h2>
+        <div id="sources" class="mt-3 grid gap-3 text-sm text-slate-200">
+          <p class="text-slate-400">Sources will appear here.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-8 text-xs text-slate-500">
+      Tip: Run the backend first (uvicorn), then open this UI.
+    </p>
+  </div>
+
+  <script>
+    const askBtn = document.getElementById('askBtn');
+    const questionEl = document.getElementById('question');
+    const topkEl = document.getElementById('topk');
+    const answerEl = document.getElementById('answer');
+    const sourcesEl = document.getElementById('sources');
+    const statusEl = document.getElementById('status');
+
+    async function ask() {
+      const q = questionEl.value.trim();
+      const top_k = parseInt(topkEl.value, 10);
+      if (!q) return;
+
+      statusEl.textContent = "Thinking...";
+      answerEl.textContent = "";
+      sourcesEl.innerHTML = "";
+
+      askBtn.disabled = true;
+      askBtn.textContent = "Working...";
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "accept": "application/json" },
+          body: JSON.stringify({ question: q, top_k })
+        });
+
+        // Handle non-200 responses cleanly
+        if (!res.ok) {
+          const txt = await res.text();
+          throw new Error(`HTTP ${res.status}: ${txt}`);
+        }
+
+        const data = await res.json();
+        answerEl.textContent = data.answer || "No answer returned.";
+
+        if (data.sources && data.sources.length) {
+          data.sources.forEach((s, idx) => {
+            const card = document.createElement("div");
+            card.className = "rounded-xl border border-slate-800 bg-slate-950 p-4";
+            card.innerHTML = `
+              <div class="flex items-center justify-between gap-3">
+                <div class="font-semibold">[${idx+1}] ${s.doc_id}</div>
+                <div class="text-slate-400">score: ${Number(s.score).toFixed(3)}</div>
+              </div>
+              <div class="mt-2 text-slate-200">${s.excerpt}</div>
+            `;
+            sourcesEl.appendChild(card);
+          });
+        } else {
+          sourcesEl.innerHTML = `<p class="text-slate-400">No sources returned.</p>`;
+        }
+
+        statusEl.textContent = "Done ✅";
+      } catch (e) {
+        statusEl.textContent = "Error ❌";
+        answerEl.textContent = "Something went wrong. See details below.";
+        sourcesEl.innerHTML = `<div class="rounded-xl border border-slate-800 bg-slate-950 p-4 text-slate-300">${e}</div>`;
+      } finally {
+        askBtn.disabled = false;
+        askBtn.textContent = "Ask";
+      }
+    }
+
+    // Click Ask + Enter
+    askBtn.addEventListener('click', ask);
+    questionEl.addEventListener('keydown', (e) => {
+      if (e.key === "Enter") ask();
+    });
+
+    // Demo chips
+    document.querySelectorAll(".chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        questionEl.value = btn.dataset.q;
+        ask();
+      });
+    });
+
+    // Copy answer
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(answerEl.textContent || "");
+      statusEl.textContent = "Copied ✅";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+import os
+from dotenv import load_dotenv
+from anthropic import Anthropic
+
+import json
+from pathlib import Path
+from typing import List
+
+import faiss
+from fastapi import FastAPI
+from pydantic import BaseModel
+from sentence_transformers import SentenceTransformer
+
+INDEX_DIR = Path("index")
+DOCS_PATH = INDEX_DIR / "docs.json"
+FAISS_PATH = INDEX_DIR / "docs.faiss"
+
+app = FastAPI(title="Mini RAG Copilot")
+load_dotenv()
+client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+
+
+# Load once on startup
+model = SentenceTransformer("all-MiniLM-L6-v2")
+index = faiss.read_index(str(FAISS_PATH))
+docs = json.loads(DOCS_PATH.read_text(encoding="utf-8"))
+
+class AskRequest(BaseModel):
+    question: str
+    top_k: int = 3
+
+class Source(BaseModel):
+    doc_id: str
+    excerpt: str
+    score: float
+
+class AskResponse(BaseModel):
+    answer: str
+    sources: List[Source]
+
+def retrieve(query: str, top_k: int = 3):
+    q_emb = model.encode([query], normalize_embeddings=True)
+    scores, idxs = index.search(q_emb, top_k)
+
+    results = []
+    for score, idx in zip(scores[0], idxs[0]):
+        if idx == -1:
+            continue
+        text = docs[idx]["text"]
+        excerpt = text[:220].replace("\n", " ")
+        results.append({"doc_id": docs[idx]["id"], "ex
